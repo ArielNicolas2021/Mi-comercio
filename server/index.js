@@ -4,8 +4,6 @@ import { productsRouter } from "./routes/productsRouter.js"
 import { ProductModel } from "./models/ProductModel.js";
 import { ticketsRouter } from "./routes/ticketsRouter.js";
 import { TicketModel } from "./models/TicketModel.js"
-import { tickets } from "./data/tickets.js"
-let getTickets = tickets
 
 const app = express();
 app.use(express.json());
