@@ -1,6 +1,6 @@
 export const putProduct = async (code, data) => {
   try {
-    const req = await fetch('http://localhost:1234/api/products/' + code, {
+    const req = await fetch('https://mi-comercio-three.vercel.app/api/products/' + code, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
