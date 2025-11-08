@@ -3,7 +3,7 @@ import { NavLink, useParams } from "react-router-dom"
 import { Navbar } from "../../components/Navbar.jsx"
 import { getProduct } from "../../hooks/getProduct.jsx"
 import { Edit } from "lucide-react"
-import { EditProduct } from "./editProduct.jsx"
+import { EditProduct } from "./EditProduct.jsx"
 
 export const ViewProduct = () => {
   const { code } = useParams()
