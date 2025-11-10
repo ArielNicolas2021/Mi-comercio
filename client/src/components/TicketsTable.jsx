@@ -8,7 +8,7 @@ export const TicketsTable = () => {
 
   useEffect(() => {
     const renderTickets = async () => {
-      const fetchedTickets = await getTickets();
+      const fetchedTickets = await getTickets(); // Obtenemos todas las facturas
       setTickets(fetchedTickets.data);
     }
     renderTickets()

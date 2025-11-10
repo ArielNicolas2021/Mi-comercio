@@ -13,13 +13,13 @@ export const ViewProduct = () => {
   const navigate = useNavigate()
 
   const handleDelete = async (code) => {
-    const del = await deleteProduct(code);
+    const del = await deleteProduct(code); // Eliminamos el producto
     navigate('/productos')
   }
 
   useEffect(() => {
     const renderProducts = async () => {
-      const fetchedProducts = await getProduct(code);
+      const fetchedProducts = await getProduct(code); // Obtenemos el producto según el código
       setProduct(fetchedProducts.data[0])
       document.title = fetchedProducts.data[0].product + " | Mi Comercio"
     }

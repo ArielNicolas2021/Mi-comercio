@@ -15,53 +15,58 @@ export const NewTicket = () => {
   const [products, setProducts] = useState([])
   const [total, setTotal] = useState(0)
 
-  const handleSubmit = async (event) => {
+  // Manejamos el buscador
+  const handleSubmit = async (event) => { 
     event.preventDefault();
-    if (event.target[0].value == "") { return }
-    const productSearch = event.target[0].value
-    const search = await getProduct(productSearch)
-    if (search.data[0] == undefined) { return }
+    if (event.target[0].value == "") { return } // Cancelamos el envío si el input está vacío
+    const productSearch = event.target[0].value // Guardamos y enviamos el producto
+    const search = await getProduct(productSearch) // Buscamos el producto según el código
+    if (search.data[0] == undefined) { return } // Cancelamos la función si no encuentra el producto
+
     const product = {
       product_code: search.data[0].code,
       product_name: search.data[0].product,
       price: search.data[0].price,
       quantity: 1,
     }
-    setProducts(prevProd => [...prevProd, product])
-    setSearchValue("")
+    setProducts(prevProd => [...prevProd, product]) // Sumamos el producto a la factura
+    setSearchValue("") // Reseteamos el input
   }
 
-  const handleChange = (quan, code) => {
+  // Manejamos la cantidad de los productos
+  const handleChange = (quan, code) => { 
     setProducts(products.map(prod =>
       prod.product_code == code ? { ...prod, quantity: Number(quan) } : prod
     ))
   }
 
-  const handleSetTicket = async () => {
+  // Manejamos el envío de la factura
+  const handleSetTicket = async () => { 
     const ticket = {
       user_id: 1,
       date: `${DateNow.day}/${DateNow.month}/${DateNow.year}`,
       items: products,
       total: total
     }
-    const post = await postTicket(ticket)
-    console.log(post)
+    const post = await postTicket(ticket) // Enviamos la factura
     setProducts([])
   }
 
-  const handleSearch = (event) => {
-    setSearchValue(event.target.value)
-    setActiveSearch(true)
-    setSearchResults([])
+  // Manejamos el buscador
+  const handleSearch = (event) => { 
+    setSearchValue(event.target.value) // Seteamos el value del input
+    setSearchResults([]) // Reseteamos los resultados del buscador
+    setActiveSearch(true) // Activamos los resultados del buscador
     productsSearch.map(prod =>
-      prod.product.toLowerCase().includes(event.target.value) ? setSearchResults(prevItem => [...prevItem, prod.product]) : ""
+      prod.product.toLowerCase().includes(event.target.value) ? setSearchResults(prevItem => [...prevItem, prod.product]) : "" // Si encuentra el producto, lo muestra en los resultador
     )
   }
 
+  // Elegimos un producto del buscador
   const handleFindProduct = (item) => {
     setActiveSearch(false)
-    const findProduct = productsSearch.filter(prod => prod.product == item)
-    setSearchValue(findProduct[0].code)
+    const findProduct = productsSearch.filter(prod => prod.product == item) // Buscamos el código del producto
+    setSearchValue(findProduct[0].code) // Mostramos el código del producto para enviarlo
   }
 
   useEffect(() => {

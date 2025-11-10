@@ -14,11 +14,13 @@ export const NewProduct = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    // Verificamos los inputs
     event.target[0].value == "" ? setCodeError(true) : setCodeError(false)
     event.target[1].value == "" ? setProductError(true) : setProductError(false)
     event.target[2].value == "" ? setCostError(true) : setCostError(false)
     event.target[3].value == "" ? setPriceError(true) : setPriceError(false)
     event.target[4].value == "" ? setStockError(true) : setStockError(false)
+    // Cancelamos el envío si alguno de los inputs está vacío
     if (event.target[0].value == "" || event.target[1].value == "" || event.target[2].value == "" || event.target[3].value == "" || event.target[4].value == "") {return}
     const product = {
       user_id: 1,
@@ -28,7 +30,7 @@ export const NewProduct = () => {
       price: Number(event.target[3].value),
       stock: Number(event.target[4].value)
     }
-    const post = await postProduct(product)
+    const post = await postProduct(product) // Envíamos el producto
     navigate('/productos')
   }
 

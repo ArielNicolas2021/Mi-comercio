@@ -8,7 +8,7 @@ export const ProductsTable = () => {
 
   useEffect(() => {
     const renderProducts = async () => {
-      const fetchedProducts = await getProducts();
+      const fetchedProducts = await getProducts(); // Obtenemos todos los productos
       setProducts(fetchedProducts.data);
     }
     renderProducts()
