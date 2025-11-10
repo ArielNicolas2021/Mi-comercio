@@ -7,7 +7,7 @@ export const productsRouter = (model) => {
 
   product.get('/', controller.getAll);
   product.get('/:code', controller.getOne);
-  product.delete('/:id', controller.delete);
+  product.delete('/:code', controller.delete);
   product.post('/', controller.create);
   product.put('/:code', controller.update);
 

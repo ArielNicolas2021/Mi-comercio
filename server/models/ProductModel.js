@@ -35,9 +35,9 @@ export class ProductModel {
       console.log(e);
     };
   };
-  static async delete(id) {
+  static async delete(code) {
     try {
-      return Product.deleteOne({ _id: id });
+      return Product.deleteOne({ code: code });
     }
     catch (e) {
       console.log(e);

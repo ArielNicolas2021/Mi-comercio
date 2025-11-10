@@ -26,8 +26,8 @@ export class ProductController {
       });
   };
   delete = async (req, res) => {
-    const id = req.params.id;
-    const returnProduct = await this.model.delete(id);
+    const code = req.params.code;
+    const returnProduct = await this.model.delete(code);
 
     returnProduct ?
       res.json({
