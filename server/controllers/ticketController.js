@@ -22,23 +22,22 @@ export class TicketController {
       }) :
       res.status(404).json({
         status: 404,
-        message: "Ticket no encontrado."
+        message: "Factura no encontrada."
       });
   };
-  delete = async (req, res) => {
-    const id = req.params.id;
-    const returnTicket = await this.model.delete(id);
+  creditNote = async (req, res) => {
+    const ticket = validateTicket(req.body);
 
-    returnTicket ?
-      res.json({
-        status: 200,
-        message: "Ticket eliminado.",
-        data: returnTicket
-      }) :
-      res.status(404).json({
-        status: 404,
-        message: "Ticket no encontrado"
-      });
+    ticket.error && res.status(404).json({
+      status: 404,
+      message: "Validación incorrecta."
+    });
+    const newCreditNote = await this.model.creditNote(ticket);
+    res.json({
+      status: 200,
+      message: "Nota de crédito agregada.",
+      data: newCreditNote
+    });
   };
   create = async (req, res) => {
     const ticket = validateTicket(req.body);
@@ -50,7 +49,7 @@ export class TicketController {
     const newTicket = await this.model.create(ticket);
     res.json({
       status: 200,
-      message: "Ticket agregado.",
+      message: "Factura agregada.",
       data: newTicket
     });
   };

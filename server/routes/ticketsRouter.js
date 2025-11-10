@@ -7,8 +7,8 @@ export const ticketsRouter = (model) => {
 
   ticket.get('/', controller.getAll);
   ticket.get('/:id', controller.getOne);
-  ticket.delete('/:id', controller.delete);
   ticket.post('/', controller.create);
+  ticket.post('/creditNote', controller.creditNote);
 
   return ticket;
 }

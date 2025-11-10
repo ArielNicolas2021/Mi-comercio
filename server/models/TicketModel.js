@@ -34,13 +34,26 @@ export class TicketModel {
       console.log(e);
     };
   };
-  static async delete(id) {
+  static async creditNote(ticket) {
+    !TicketModel.success && Error;
+    const newCreditNote = { ...ticket.data };
+    const saveTicket = new Ticket(newCreditNote);
+
     try {
-      return Ticket.deleteOne({ _id: id });
+      await saveTicket.save();
+      for (let i of newCreditNote.items) {
+        const productId = i.product_code;
+        const product = await ProductModel.getOne(productId);
+        const newStock = {
+          stock: product[0].stock + i.quantity
+        }
+        await ProductModel.update(productId, { data: newStock, success: true });
+      }
+      return newCreditNote;
     }
     catch (e) {
       console.log(e);
-    };
+    }
   };
   static async create(ticket) {
     !TicketModel.success && Error;
