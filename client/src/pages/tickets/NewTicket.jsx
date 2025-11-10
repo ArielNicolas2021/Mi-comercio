@@ -5,8 +5,13 @@ import { getProduct } from '../../hooks/getProduct.jsx';
 import { Search } from 'lucide-react';
 import { DateNow } from '../../utils/DateNow.js';
 import { postTicket } from '../../hooks/postTicket.jsx';
+import { getProducts } from '../../hooks/getProducts.jsx';
 
 export const NewTicket = () => {
+  const [productsSearch, setProductsSearch] = useState([])
+  const [searchResults, setSearchResults] = useState([])
+  const [activeSearch, setActiveSearch] = useState(true)
+  const [searchValue, setSearchValue] = useState("")
   const [products, setProducts] = useState([])
   const [total, setTotal] = useState(0)
 
@@ -23,7 +28,7 @@ export const NewTicket = () => {
       quantity: 1,
     }
     setProducts(prevProd => [...prevProd, product])
-    event.target[0].value = ""
+    setSearchValue("")
   }
 
   const handleChange = (quan, code) => {
@@ -44,6 +49,21 @@ export const NewTicket = () => {
     setProducts([])
   }
 
+  const handleSearch = (event) => {
+    setSearchValue(event.target.value)
+    setActiveSearch(true)
+    setSearchResults([])
+    productsSearch.map(prod =>
+      prod.product.toLowerCase().includes(event.target.value) ? setSearchResults(prevItem => [...prevItem, prod.product]) : ""
+    )
+  }
+
+  const handleFindProduct = (item) => {
+    setActiveSearch(false)
+    const findProduct = productsSearch.filter(prod => prod.product == item)
+    setSearchValue(findProduct[0].code)
+  }
+
   useEffect(() => {
     const renderTotal = () => {
       setTotal(0)
@@ -53,7 +73,12 @@ export const NewTicket = () => {
   }, [products])
 
   useEffect(() => {
-    document.title = "Nuevo producto | Mi Comercio"
+    document.title = "Nueva factura | Mi Comercio"
+    const renderProducts = async () => {
+      const fetchedProducts = await getProducts()
+      setProductsSearch(fetchedProducts.data)
+    }
+    renderProducts()
   }, [])
 
   return (
@@ -66,8 +91,15 @@ export const NewTicket = () => {
         <div className='bg-white border border-gray-300 p-4 rounded-md flex flex-col gap-4'>
           <h1 className='text-gray-950 text-xl font-semibold'>Nueva factura</h1>
           <form className='flex items-end justify-center' onSubmit={handleSubmit}>
-            <div>
-              <input type="text" name="search" id="search" placeholder='Ingrese el código del producto' className='border border-gray-300 bg-gray-50 p-2 rounded-l-md md:w-50' />
+            <div className='relative'>
+              <input type="text" name="search" id="search" placeholder='Ingrese el código del producto' className='border border-gray-300 bg-gray-50 p-2 rounded-l-md md:w-50' value={searchValue} onChange={handleSearch} />
+              <div className='absolute top-[42px] bg-white border border-gray-300 shadow-md flex flex-col rounded-sm'>
+                {
+                  searchResults.length > 0 && activeSearch && searchResults.map((item, index) =>
+                    <span className='text-gray-600 p-4 even:bg-gray-100 cursor-pointer hover:bg-gray-200' key={index} onClick={() => handleFindProduct(item)}>{item}</span>
+                  )
+                }
+              </div>
             </div>
             <button type="submit" className=' h-[42px] bg-cyan-500 text-white py-2 px-4 rounded-r-md sm:w-fit cursor-pointer hover:bg-cyan-600 duration-300'><Search className='text-white' size={16} /></button>
           </form>
@@ -101,11 +133,11 @@ export const NewTicket = () => {
               </tbody>
             </table>
           </div>
-            <div className='flex justify-between my-4'>
-              <h2 className='text-xl font-semibold text-gray-950'>Total de la factura</h2>
-              <span className='text-gray-600'>${total}</span>
-            </div>
-            <button type="button" className='bg-cyan-500 text-white py-2 px-4 rounded-sm w-full sm:w-fit cursor-pointer hover:bg-cyan-600 duration-300' onClick={handleSetTicket}>Enviar factura</button>
+          <div className='flex justify-between my-4'>
+            <h2 className='text-xl font-semibold text-gray-950'>Total de la factura</h2>
+            <span className='text-gray-600'>${total}</span>
+          </div>
+          <button type="button" className='bg-cyan-500 text-white py-2 px-4 rounded-sm w-full sm:w-fit cursor-pointer hover:bg-cyan-600 duration-300' onClick={handleSetTicket}>Enviar factura</button>
         </div>
       </div>
     </>
