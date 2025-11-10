@@ -1,26 +1,17 @@
 import { Navbar } from '../../components/Navbar'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { postProduct } from '../../hooks/postProduct';
 import { useEffect, useState } from 'react';
-import { Alert, Snackbar } from "@mui/material";
 import { InputBlock } from '../../components/InputBlock';
 
 export const NewProduct = () => {
-  const [open, setOpen] = useState(false);
-  const [message, setMessage] = useState("")
-  const [status, setStatus] = useState("")
-  const vertical = "top"
-  const horizontal = "center"
   const [codeError, setCodeError] = useState(false)
   const [productError, setProductError] = useState(false)
   const [costError, setCostError] = useState(false)
   const [priceError, setPriceError] = useState(false)
   const [stockError, setStockError] = useState(false)
+  const navigate = useNavigate()
 
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {return;}
-    setOpen(false);
-  };
   const handleSubmit = async (event) => {
     event.preventDefault();
     event.target[0].value == "" ? setCodeError(true) : setCodeError(false)
@@ -38,9 +29,7 @@ export const NewProduct = () => {
       stock: Number(event.target[4].value)
     }
     const post = await postProduct(product)
-    setOpen(true)
-    setMessage(post.message)
-    setStatus(post.status)
+    navigate('/productos')
   }
 
   useEffect(() => {
@@ -68,22 +57,6 @@ export const NewProduct = () => {
           </form>
         </div>
       </div>
-      <Snackbar
-        anchorOrigin={{ vertical, horizontal }}
-        open={open}
-        autoHideDuration={6000}
-        onClose={handleClose}
-        sx={{ marginLeft: '100px' }}
-      >
-        <Alert
-          onClose={handleClose}
-          severity={status == 200 ? "success" : "error"}
-          variant="filled"
-          sx={{ width: '100%' }}
-        >
-          {message}
-        </Alert>
-      </Snackbar>
     </>
   )
 }
