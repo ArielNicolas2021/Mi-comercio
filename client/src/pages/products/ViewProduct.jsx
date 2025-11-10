@@ -1,14 +1,21 @@
 import { useEffect, useState } from "react"
-import { NavLink, useParams } from "react-router-dom"
+import { NavLink, useNavigate, useParams } from "react-router-dom"
 import { Navbar } from "../../components/Navbar.jsx"
 import { getProduct } from "../../hooks/getProduct.jsx"
-import { Edit } from "lucide-react"
+import { Delete, Edit } from "lucide-react"
 import { EditProduct } from "./EditProduct.jsx"
+import { deleteProduct } from "../../hooks/deleteProduct.jsx"
 
 export const ViewProduct = () => {
   const { code } = useParams()
   const [product, setProduct] = useState([])
   const [editMode, setEditMode] = useState(false)
+  const navigate = useNavigate()
+
+  const handleDelete = async (code) => {
+    const del = await deleteProduct(code);
+    navigate('/productos')
+  }
 
   useEffect(() => {
     const renderProducts = async () => {
@@ -58,7 +65,10 @@ export const ViewProduct = () => {
           </div>
           {
             !editMode ?
-              <p className="flex items-center gap-1 text-cyan-500 cursor-pointer w-fit" onClick={() => setEditMode(true)}>Editar <Edit size={14} /></p> : ""
+              <div className="flex items-center gap-4">
+                <p className="flex items-center gap-1 text-cyan-500 cursor-pointer w-fit" onClick={() => setEditMode(true)}>Editar <Edit size={14} /></p>
+                <p className="flex items-center gap-1 text-red-500 cursor-pointer w-fit" onClick={() => handleDelete(code)}>Eliminar <Delete size={14} /></p>
+              </div> : ""
           }
         </div>
       </div>
