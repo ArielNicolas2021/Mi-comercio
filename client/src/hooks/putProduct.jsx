@@ -1,6 +1,6 @@
 export const putProduct = async (code, data) => {
-  // const LINK = 'https://mi-comercio-three.vercel.app/api'
-  const LINK = 'http://localhost:1234/api'
+  const LINK = 'https://mi-comercio-three.vercel.app/api'
+  // const LINK = 'http://localhost:1234/api'
   try {
     const req = await fetch(LINK + '/products/' + code, {
       method: 'PUT',
