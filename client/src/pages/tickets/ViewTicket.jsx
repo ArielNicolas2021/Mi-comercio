@@ -26,7 +26,7 @@ export const ViewTicket = () => {
         </div>
         <div className='bg-white border border-gray-300 p-4 rounded-md'>
           <h1 className='text-gray-950 text-xl font-semibold'>Detalles de la factura</h1>
-          <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 my-4'>
+          <div className='grid grid-cols-1 sm:grid-cols-3 gap-4 my-4'>
             <div>
               <h2 className="text-gray-950 font-bold">Fecha</h2>
               <p className="text-gray-600">{ticket.date}</p>
@@ -35,7 +35,11 @@ export const ViewTicket = () => {
               <h2 className="text-gray-950 font-bold">Total</h2>
               <p className="text-gray-600">{ticket.total}</p>
             </div>
-            <div className="col-span-2">
+            <div>
+              <h2 className="text-gray-950 font-bold">Tipo de factura</h2>
+              <p className="text-gray-600">{ticket.ticketType}</p>
+            </div>
+            <div className="col-span-3">
               <h2 className="text-gray-950 font-bold">Productos</h2>
               <div className="w-full overflow-auto">
                 <table className="w-105 sm:w-full">

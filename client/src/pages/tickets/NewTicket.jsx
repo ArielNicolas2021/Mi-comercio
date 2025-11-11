@@ -44,6 +44,7 @@ export const NewTicket = () => {
   const handleSetTicket = async () => { 
     const ticket = {
       user_id: 1,
+      ticketType: "Venta",
       date: `${DateNow.day}/${DateNow.month}/${DateNow.year}`,
       items: products,
       total: total
@@ -58,7 +59,7 @@ export const NewTicket = () => {
     setSearchResults([]) // Reseteamos los resultados del buscador
     setActiveSearch(true) // Activamos los resultados del buscador
     productsSearch.map(prod =>
-      prod.product.toLowerCase().includes(event.target.value) ? setSearchResults(prevItem => [...prevItem, prod.product]) : "" // Si encuentra el producto, lo muestra en los resultador
+      prod.product.toLowerCase().includes(event.target.value.toLowerCase()) ? setSearchResults(prevItem => [...prevItem, prod.product]) : "" // Si encuentra el producto, lo muestra en los resultador
     )
   }
 

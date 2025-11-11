@@ -26,7 +26,7 @@ export const Tickets = () => {
             </form>
             <div className="flex flex-col gap-1 w-full md:flex-row sm:justify-end">
               <NavLink to="/facturas/nueva-factura" className='flex justify-center items-center py-2 px-4 bg-cyan-500 text-white font-semibold rounded-sm hover:bg-cyan-600 duration-300 cursor-pointer'>Nueva factura</NavLink>
-              <NavLink to="/facturas/nota-debito" className='flex justify-center items-center py-2 px-4 bg-gray-500 text-white font-semibold rounded-sm hover:bg-gray-600 duration-300 cursor-pointer'>Nota de débito</NavLink>
+              <NavLink to="/facturas/nuevo-credito" className='flex justify-center items-center py-2 px-4 bg-gray-500 text-white font-semibold rounded-sm hover:bg-gray-600 duration-300 cursor-pointer'>Nota de crédito</NavLink>
             </div>
           </div>
           <div className='w-full overflow-auto'>

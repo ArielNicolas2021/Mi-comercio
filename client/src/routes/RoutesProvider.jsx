@@ -6,6 +6,7 @@ import { NewProduct } from "../pages/products/NewProduct.jsx";
 import { ViewProduct } from "../pages/products/ViewProduct.jsx";
 import { NewTicket } from "../pages/tickets/NewTicket.jsx";
 import { ViewTicket } from "../pages/tickets/ViewTicket.jsx";
+import { NewCreditNote } from "../pages/tickets/NewCreditNote.jsx";
 
 export const RoutesProvider = () => {
   return (
@@ -17,6 +18,7 @@ export const RoutesProvider = () => {
         <Route path="/productos/:code" element={<ViewProduct />} />
         <Route path="/facturas" element={<Tickets />} />
         <Route path="/facturas/nueva-factura" element={<NewTicket />} />
+        <Route path="/facturas/nuevo-credito" element={<NewCreditNote />} />
         <Route path="/facturas/:id" element={<ViewTicket />} />
       </Routes>
     </BrowserRouter>
