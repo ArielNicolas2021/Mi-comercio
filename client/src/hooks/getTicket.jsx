@@ -1,6 +1,8 @@
 export const getTicket = async (id) => {
+  // const LINK = 'https://mi-comercio-three.vercel.app/api'
+  const LINK = 'http://localhost:1234/api'
   try {
-    const req = await fetch('https://mi-comercio-three.vercel.app/api/tickets/' + id, {
+    const req = await fetch(LINK + '/tickets/' + id, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
