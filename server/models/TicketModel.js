@@ -7,6 +7,7 @@ connect();
 const ticketSchema = new Schema(
   {
     user_id: Number,
+    ticketType: String,
     date: String,
     items: Array,
     total: Number
