@@ -17,7 +17,7 @@ export const Login = () => {
       return
     }
     localStorage.setItem('userAuth', JSON.stringify(logged))
-    navigate('/')
+    navigate('/home')
   }
 
   return (
