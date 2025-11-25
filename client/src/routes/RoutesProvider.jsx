@@ -14,7 +14,10 @@ export const RoutesProvider = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/registro" element={<Register />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/productos" element={<Products />} />
         <Route path="/productos/nuevo-producto" element={<NewProduct />} />
         <Route path="/productos/:id" element={<ViewProduct />} />
@@ -22,8 +25,6 @@ export const RoutesProvider = () => {
         <Route path="/facturas/nueva-factura" element={<NewTicket />} />
         <Route path="/facturas/nuevo-credito" element={<NewCreditNote />} />
         <Route path="/facturas/:id" element={<ViewTicket />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/registro" element={<Register />} />
       </Routes>
     </BrowserRouter>
   )
