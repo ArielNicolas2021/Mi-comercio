@@ -5,8 +5,7 @@ connect();
 
 const productSchema = new Schema(
   {
-    user_id: Number,
-    code: String,
+    user_id: String,
     product: String,
     cost: Number,
     price: Number,
@@ -27,17 +26,17 @@ export class ProductModel {
       console.log(e)
     };
   };
-  static async getOne(code) {
+  static async getOne(id) {
     try {
-      return await Product.find({"code": code})
+      return await Product.find({ _id: id })
     }
     catch (e) {
       console.log(e);
     };
   };
-  static async delete(code) {
+  static async delete(id) {
     try {
-      return Product.deleteOne({ code: code });
+      return Product.deleteOne({ _id: id });
     }
     catch (e) {
       console.log(e);
@@ -56,11 +55,11 @@ export class ProductModel {
       console.log(e);
     };
   };
-  static async update(code, validation) {
+  static async update(id, validation) {
     !validation.success && res.status(400).json('Validación incorrecta.');
     try {
       return await Product.findOneAndUpdate(
-        { code: code },
+        { _id: id },
         { ...validation.data },
         { new: true }
       );

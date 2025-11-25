@@ -1,11 +1,12 @@
+import { URL } from "../utils/Database.js"
+
 export const postCredit = async (data) => {
-  const LINK = 'https://mi-comercio-three.vercel.app/api'
-  // const LINK = 'http://localhost:1234/api'
   try {
-    const req = await fetch(LINK + '/tickets/creditNote', {
+    const req = await fetch(URL + '/tickets/creditNote', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        "Authorization": localStorage.getItem('userAuth') ?  JSON.parse(localStorage.getItem('userAuth')).token : ''
       },
       body: JSON.stringify(data)
     });

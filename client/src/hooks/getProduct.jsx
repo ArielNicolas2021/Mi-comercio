@@ -1,11 +1,12 @@
-export const getProduct = async (code) => {
-  const LINK = 'https://mi-comercio-three.vercel.app/api'
-  // const LINK = 'http://localhost:1234/api'
+import { URL } from "../utils/Database.js"
+
+export const getProduct = async (id) => {
   try {
-    const req = await fetch(LINK + '/products/' + code, {
+    const req = await fetch(URL + '/products/' + id, {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        "Authorization": localStorage.getItem('userAuth') ?  JSON.parse(localStorage.getItem('userAuth')).token : ''
       }
     });
     const res = await req.json();

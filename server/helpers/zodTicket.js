@@ -1,7 +1,7 @@
 import zod from 'zod';
 
 const ticketSchema = zod.object({
-  user_id: zod.number(),
+  user_id: zod.string(),
   date: zod.string(),
   ticketType: zod.string(),
   items: zod.array(zod.object({

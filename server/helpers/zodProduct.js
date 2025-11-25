@@ -1,8 +1,7 @@
 import zod from 'zod';
 
 const productSchema = zod.object({
-  user_id: zod.number(),
-  code: zod.string(),
+  user_id: zod.string(),
   product: zod.string(),
   cost: zod.number(),
   price: zod.number(),

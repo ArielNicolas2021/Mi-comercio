@@ -6,10 +6,10 @@ export const productsRouter = (model) => {
   const product = Router();
 
   product.get('/', controller.getAll);
-  product.get('/:code', controller.getOne);
-  product.delete('/:code', controller.delete);
+  product.get('/:id', controller.getOne);
+  product.delete('/:id', controller.delete);
   product.post('/', controller.create);
-  product.put('/:code', controller.update);
+  product.put('/:id', controller.update);
 
   return product;
 }

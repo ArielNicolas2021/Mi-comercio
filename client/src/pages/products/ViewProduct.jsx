@@ -7,19 +7,19 @@ import { EditProduct } from "./EditProduct.jsx"
 import { deleteProduct } from "../../hooks/deleteProduct.jsx"
 
 export const ViewProduct = () => {
-  const { code } = useParams()
+  const { id } = useParams()
   const [product, setProduct] = useState([])
   const [editMode, setEditMode] = useState(false)
   const navigate = useNavigate()
 
-  const handleDelete = async (code) => {
-    const del = await deleteProduct(code); // Eliminamos el producto
+  const handleDelete = async () => {
+    const del = await deleteProduct(id); // Eliminamos el producto
     navigate('/productos')
   }
 
   useEffect(() => {
     const renderProducts = async () => {
-      const fetchedProducts = await getProduct(code); // Obtenemos el producto según el código
+      const fetchedProducts = await getProduct(id); // Obtenemos el producto según el código
       setProduct(fetchedProducts.data[0])
       document.title = fetchedProducts.data[0].product + " | Mi Comercio"
     }
@@ -39,10 +39,6 @@ export const ViewProduct = () => {
             {
               !editMode ?
                 <>
-                  <div>
-                    <h2 className="text-gray-950 font-bold">Código</h2>
-                    <p className="text-gray-600">{product.code}</p>
-                  </div>
                   <div>
                     <h2 className="text-gray-950 font-bold">Producto</h2>
                     <p className="text-gray-600">{product.product}</p>
@@ -67,7 +63,7 @@ export const ViewProduct = () => {
             !editMode ?
               <div className="flex items-center gap-4">
                 <p className="flex items-center gap-1 text-cyan-500 cursor-pointer w-fit" onClick={() => setEditMode(true)}>Editar <Edit size={14} /></p>
-                <p className="flex items-center gap-1 text-red-500 cursor-pointer w-fit" onClick={() => handleDelete(code)}>Eliminar <Delete size={14} /></p>
+                <p className="flex items-center gap-1 text-red-500 cursor-pointer w-fit" onClick={handleDelete}>Eliminar <Delete size={14} /></p>
               </div> : ""
           }
         </div>

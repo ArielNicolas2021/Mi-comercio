@@ -12,8 +12,8 @@ export class ProductController {
     });
   };
   getOne = async (req, res) => {
-    const code = req.params.code;
-    const product = await this.model.getOne(code);
+    const id = req.params.id;
+    const product = await this.model.getOne(id);
 
     product ?
       res.json({
@@ -26,8 +26,8 @@ export class ProductController {
       });
   };
   delete = async (req, res) => {
-    const code = req.params.code;
-    const returnProduct = await this.model.delete(code);
+    const id = req.params.id;
+    const returnProduct = await this.model.delete(id);
 
     returnProduct ?
       res.json({
@@ -55,7 +55,7 @@ export class ProductController {
     });
   };
   update = async (req, res) => {
-    const id = req.params.code;
+    const id = req.params.id;
     const validProduct = partialValidate(req.body);
     const newProduct = await this.model.update(id, validProduct);
     res.json({

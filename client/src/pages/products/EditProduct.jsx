@@ -4,39 +4,36 @@ import { putProduct } from "../../hooks/putProduct"
 import { useNavigate } from "react-router-dom"
 
 export const EditProduct = ({ product, setEditMode }) => {
-  const [codeError, setCodeError] = useState(false)
   const [productError, setProductError] = useState(false)
   const [costError, setCostError] = useState(false)
   const [priceError, setPriceError] = useState(false)
   const [stockError, setStockError] = useState(false)
+  const userLogged = JSON.parse(localStorage.getItem('userAuth')).username;
   const navigate = useNavigate()
 
   const handleSubmit = async (event) => {
     event.preventDefault()
     // Verificamos los inputs
-    event.target[0].value == "" ? setCodeError(true) : setCodeError(false)
-    event.target[1].value == "" ? setProductError(true) : setProductError(false)
-    event.target[2].value == "" ? setCostError(true) : setCostError(false)
-    event.target[3].value == "" ? setPriceError(true) : setPriceError(false)
-    event.target[4].value == "" ? setStockError(true) : setStockError(false)
+    event.target[0].value == "" ? setProductError(true) : setProductError(false)
+    event.target[1].value == "" ? setCostError(true) : setCostError(false)
+    event.target[2].value == "" ? setPriceError(true) : setPriceError(false)
+    event.target[3].value == "" ? setStockError(true) : setStockError(false)
     // Cancelamos el envío si alguno de los inputs está vacío
-    if (event.target[0].value == "" || event.target[1].value == "" || event.target[2].value == "" || event.target[3].value == "" || event.target[4].value == "") { return }
+    if (event.target[0].value == "" || event.target[1].value == "" || event.target[2].value == "" || event.target[3].value == "") { return }
     const newProduct = {
-      user_id: 1,
-      code: event.target[0].value,
-      product: event.target[1].value,
-      cost: Number(event.target[2].value),
-      price: Number(event.target[3].value),
-      stock: Number(event.target[4].value)
+      user_id: userLogged,
+      product: event.target[0].value,
+      cost: Number(event.target[1].value),
+      price: Number(event.target[2].value),
+      stock: Number(event.target[3].value)
     }
-    const put = await putProduct(product.code, newProduct) // Enviamos el producto editado
+    const put = await putProduct(product._id, newProduct) // Enviamos el producto editado
     navigate('/productos')
   }
 
   return (
     <form className="col-span-2" onSubmit={handleSubmit}>
       <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 my-4'>
-        <InputBlock id="code" label="Código" placeholder="Ingrese el código del producto" error={codeError} value={product.code} />
         <InputBlock id="product" label="Producto" placeholder="Ingrese el producto" error={productError} value={product.product} />
         <InputBlock id="cost" label="Costo" placeholder="Ingrese el costo" type="number" error={costError} value={product.cost} />
         <InputBlock id="price" label="Precio" placeholder="Ingrese el precio" type='number' error={priceError} value={product.price} />

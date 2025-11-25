@@ -1,15 +1,20 @@
+import { URL } from "../utils/Database.js"
+
 export const getProducts = async () => {
-  const LINK = 'https://mi-comercio-three.vercel.app/api'
-  // const LINK = 'http://localhost:1234/api'
+  const userLogged = JSON.parse(localStorage.getItem('userAuth'));
+
   try {
-    const req = await fetch(LINK + '/products/', {
+    const req = await fetch(URL + '/products/', {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        "Authorization": userLogged.token
       }
     });
     const res = await req.json();
-    return res
+    const data = res.data;
+    const filteredRes = data.filter(product => product.user_id == userLogged.username);
+    return filteredRes;
   }
   catch (e) {
     console.error(e);

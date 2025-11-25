@@ -9,7 +9,7 @@ export const TicketsTable = () => {
   useEffect(() => {
     const renderTickets = async () => {
       const fetchedTickets = await getTickets(); // Obtenemos todas las facturas
-      setTickets(fetchedTickets.data);
+      setTickets(fetchedTickets);
     }
     renderTickets()
   }, [])
@@ -31,8 +31,8 @@ export const TicketsTable = () => {
               <tr className="border-b border-gray-200 last:border-0 even:bg-gray-100" key={index}>
                 <td className="p-3 text-gray-600">{item._id}</td>
                 <td className="p-3 text-gray-600">
-                  <div className={item.ticketType == "Venta" ? "bg-gray-100 border border-gray-300 w-fit px-2 py-1 rounded-md" : "bg-red-100 border border-red-300 w-fit px-2 py-1 rounded-md"}>
-                    {item.ticketType}
+                  <div className={item.ticketType == "Venta" ? "bg-gray-100 border border-gray-300 w-fit px-2 py-1 rounded-md" : "bg-red-100 border border-red-300 w-30 px-2 py-1 rounded-md"}>
+                    <p>{item.ticketType}</p>
                   </div>
                 </td>
                 <td className="p-3 text-gray-600">{item.total}</td>
