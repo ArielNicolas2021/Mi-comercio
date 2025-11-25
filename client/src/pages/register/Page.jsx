@@ -22,7 +22,7 @@ export const Register = () => {
   }
 
   return (
-    <div className='min-w-dvw min-h-dvh flex justify-center items-center bg-[url(pexels-fotios-photos-1855214.jpg)] bg-center bg-cover'>
+    <div className='min-w-dvw min-h-dvh flex justify-center items-center bg-[url(../assets/pexels-fotios-photos-1855214.jpg)] bg-center bg-cover'>
       <div className='bg-white border border-gray-300 p-8 rounded-lg shadow-lg flex flex-col gap-4 w-full sm:w-96'>
         <h1 className='text-2xl font-bold'>Registrarse</h1>
         <form className="flex flex-col gap-4" onSubmit={handleRegister}>
